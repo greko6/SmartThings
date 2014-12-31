@@ -52,13 +52,13 @@ metadata {
         command "removeAuthToken"
 	}
 
-    preferences {
-    input("CameraIP", "string", title:"Camera IP Address", description: "Please enter your camera's IP Address", required: true, displayDuringSetup: true)
-    input("CameraPort", "string", title:"Camera Port", description: "Please enter your camera's Port", defaultValue: 80 , required: true, displayDuringSetup: true)
-    input("CameraPath", "string", title:"Camera Path to Image", description: "Please enter the path to the image (default: /cgi-bin/video.cgi?msubmenu=jpg&resolution=2)", defaultValue: "/cgi-bin/video.cgi?msubmenu=jpg&resolution=2", required: true, displayDuringSetup: true)
-    input("CameraPostGet", "string", title:"Does Camera use a Post or Get, normally Get?", description: "Please choose if the camera uses a POST or a GET command to retreive the image", defaultValue: "GET", displayDuringSetup: true)
-    input("CameraUser", "string", title:"Camera User", description: "Please enter your camera's username (default: admin)", defaultValue: "admin", required: false, displayDuringSetup: true)
-    input("CameraPassword", "string", title:"Camera Password", description: "Please enter your camera's password", required: false, displayDuringSetup: true)
+        preferences {
+            input("CameraIP", "string", title:"Camera IP Address", description: "Please enter your camera's IP Address", required: true, displayDuringSetup: true)
+            input("CameraPort", "string", title:"Camera Port", description: "Please enter your camera's Port", defaultValue: 80 , required: true, displayDuringSetup: true)
+            input("CameraPath", "string", title:"Camera Path to Image", description: "Please enter the path to the image (default: /cgi-bin/video.cgi?msubmenu=jpg&resolution=2)", defaultValue: "/cgi-bin/video.cgi?msubmenu=jpg&resolution=2", required: true, displayDuringSetup: true)
+            input("CameraPostGet", "string", title:"Does Camera use a Post or Get, normally Get?", description: "Please choose if the camera uses a POST or a GET command to retreive the image", defaultValue: "GET", displayDuringSetup: true)
+            input("CameraUser", "string", title:"Camera User", description: "Please enter your camera's username (default: admin)", defaultValue: "admin", required: false, displayDuringSetup: true)
+            input("CameraPassword", "string", title:"Camera Password", description: "Please enter your camera's password", required: false, displayDuringSetup: true)
 	}
     
 	simulator {
