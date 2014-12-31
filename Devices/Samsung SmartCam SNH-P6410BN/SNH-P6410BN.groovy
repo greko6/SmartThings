@@ -207,8 +207,7 @@ private String calcDigestAuth(headers) {
 		state.nc = state.nc + 1
 	}
 
-	def random = java.util.UUID.randomUUID().toString().replaceAll('-', '').substring(0, 8)
-	def cnonce = random
+	def cnonce = java.util.UUID.randomUUID().toString().replaceAll('-', '').substring(0, 8)
 	def response = new String("${HA1}:" + headers.nonce.trim() + ":" + state.nc + ":" + cnonce + ":" + "auth" + ":${HA2}")
 	def response_enc = response.encodeAsMD5()
 
