@@ -89,16 +89,15 @@ metadata {
 
 // method to set digest token
 def setAuthToken() {
-	log.debug "setAuth"
+	trace("setAuth")
 	state.auth = "empty"
 	take()
 }
 
 // method to set remove token (a.k.a. logout)
 def removeAuthToken() {
-	log.debug "removeAuth"
-	sendEvent(name: "authenticate",
-	value: "Auth")
+	trace("removeAuth")
+	sendEvent(name: "authenticate", value: "Auth")
 	state.auth = "empty"
 }
 
@@ -112,8 +111,8 @@ def take() {
 	// set a proper network Id of the device
 	device.deviceNetworkId = "$hosthex:$porthex"
 
-	log.debug "The device id configured is: $device.deviceNetworkId"
-	log.debug "state: " + state
+	trace("The device id configured is: $device.deviceNetworkId")
+	trace("state: " + state)
 
 	if (!state.auth || state.auth == "empty") {
 		// empty request to get nonce token
@@ -130,16 +129,15 @@ def take() {
 			// upload image/jpg output to S3 
 			hubAction.options = [outputMsgToS3: true]
 		}
-		log.debug hubAction.getProperties()
 		return hubAction
 	} catch (Exception e) {
-		log.debug "Hit Exception $e on $hubAction"
+		trace("Hit Exception $e on $hubAction")
 	}
 }
 
 // method to parse output from the camera
 def parse(String output) {
-	log.debug "Parsing output: '${output}'"
+	trace("Parsing output: '${output}'")
 	def headers = ""
 	def parsedHeaders = ""
 	def map = stringToMap(output)
@@ -151,7 +149,7 @@ def parse(String output) {
 		if (parsedHeaders.auth) {
 			// set required tokens in the special state variable (see description above)
 			state.auth = parsedHeaders.auth
-			log.debug "Got 401, send request again (click on 'take' one more time): " + state.auth
+			trace("Got 401, send request again (click on 'take' one more time): " + state.auth)
 			sendEvent(name: "authenticate", value: "DeAuth")
 			return result
 		}
@@ -159,11 +157,11 @@ def parse(String output) {
 
 	if (map.body != null) {
 		def bodyString = new String(map.body.decodeBase64())
-		log.debug bodyString
+		trace(bodyString)
 	}
 
 	if (map.bucket && map.key) {
-		log.debug "Uploading the picture to amazon S3"
+		trace("Uploading the picture to amazon S3")
 		putImageInS3(map)
 	}
 
@@ -184,11 +182,11 @@ private parseHttpHeaders(String headers) {
 
 	if (result.status == 401) {
 		result.auth = stringToMap(lines[1].replaceAll("WWW-Authenticate: Digest ", "").replaceAll("=", ":").replaceAll("\"", ""))
-		log.debug "It's ok. Press take again" + result.auth
+		trace("It's ok. Press take again" + result.auth)
 	}
 
 	if (result.status == 200) {
-		log.debug "Authentication successful! :" + result
+		trace("Authentication successful! :" + result)
 	}
 
 	return result
@@ -211,9 +209,9 @@ private String calcDigestAuth(headers) {
 	def response = new String("${HA1}:" + headers.nonce.trim() + ":" + state.nc + ":" + cnonce + ":" + "auth" + ":${HA2}")
 	def response_enc = response.encodeAsMD5()
 
-	// log.debug "HA1: " + HA1 + " ===== org:" + "${CameraUser}:" + headers.realm.trim() + ":${CameraPassword}"
-	// log.debug "HA2: " + HA2 + " ===== org:" + "${CameraPostGet}:${CameraPath}"
-	// log.debug "Response: " + response_enc + " =====   org:" + response
+	trace("HA1: " + HA1 + " ===== org:" + "${CameraUser}:" + headers.realm.trim() + ":${CameraPassword}")
+	trace("HA2: " + HA2 + " ===== org:" + "${CameraPostGet}:${CameraPath}")
+	trace("Response: " + response_enc + " =====   org:" + response)
 	
 	def eol = " "
         
@@ -236,13 +234,12 @@ private getPictureName() {
 
 private String convertIPtoHex(ipAddress) { 
     String hex = ipAddress.tokenize( '.' ).collect {  String.format( '%02x', it.toInteger() ) }.join()
-    log.debug "IP address entered is $ipAddress and the converted hex code is $hex"
+    trace("IP address entered is $ipAddress and the converted hex code is $hex")
     return hex
 }
 
 private String convertPortToHex(port) {
 	String hexport = port.toString().format( '%04x', port.toInteger() )
-    log.debug hexport
     return hexport
 }
 
@@ -269,7 +266,7 @@ private hashMD5(String somethingToHash) {
 // store image on S3. Hint: if you use your bucket and key maybe you can upload it to your cloud? Never tested, but possible it will work.
 def putImageInS3(map) {
 	def s3ObjectContent
-
+    
 	try {
 		def imageBytes = getS3Object(map.bucket, map.key + ".jpg")
 
@@ -293,4 +290,8 @@ private def delayHubAction(ms) {
 
 private getCallBackAddress() {
 	device.hub.getDataValue("localIP") + ":" + device.hub.getDataValue("localSrvPortTCP")
+}
+
+private trace(message) {
+  log.debug message
 }
