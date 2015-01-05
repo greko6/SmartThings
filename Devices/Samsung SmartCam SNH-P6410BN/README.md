@@ -21,9 +21,9 @@ Version: Published, Location: your hub name
   e) Camera User, for SNH-P6410BN it's admin
   f) Camera Password: anything you've set during your camera setup
 8. Go to your mobile app and add a new widget.
-9. Click on "Auth" button and see if you can sucessfully authenticate with your local camera. If not, triple check your settings.
+9. Click on "Auth" button and see if you can sucessfully authenticate with your local camera. If not, triple check your settings.<br>
 Note: you can look at your logs in the real time if you're curious what's happening: https://graph.api.smartthings.com/ide/logs
  
-Date: 2014-12-30
-Version: 1.0 (tested and working)
+**Date:** 2014-12-30<br>
+**Version:** 1.0 (tested and working)<br>
  
