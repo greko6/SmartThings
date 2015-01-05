@@ -15,14 +15,14 @@ Version: Published, Location: your hub name
 7. Populate settings:
   a) Camera IP Address (192.168, 172.1x or 10.x.x.x works fine too)
   b) Camera Port (usually 80, but can be anything you like)
-  c) Camera Path to Image, when it comes to SNH-P6410BN, use: "/cgi-bin/video.cgi?msubmenu=jpg&resolution=2".
-     Note: with SNH-P6410BN you can modify resolution from 1 to 10.
+  c) Camera Path to Image, when it comes to SNH-P6410BN, use: "/cgi-bin/video.cgi?msubmenu=jpg&resolution=2".<br>
+     **Note:** with SNH-P6410BN you can modify resolution from 1 to 10.
   d) Does Camera use a Post or Get, normally Get? GET
   e) Camera User, for SNH-P6410BN it's admin
   f) Camera Password: anything you've set during your camera setup
 8. Go to your mobile app and add a new widget.
 9. Click on "Auth" button and see if you can sucessfully authenticate with your local camera. If not, triple check your settings.<br>
-Note: you can look at your logs in the real time if you're curious what's happening: https://graph.api.smartthings.com/ide/logs
+**Note:** you can look at your logs in the real time if you're curious what's happening: https://graph.api.smartthings.com/ide/logs
  
 **Date:** 2014-12-30<br>
 **Version:** 1.0 (tested and working)<br>
