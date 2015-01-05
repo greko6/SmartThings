@@ -9,8 +9,8 @@ HUB API is not allowing for two physicalgraph.device.HubAction in a row in a qui
 2. Add name (example: SmartCam), author and namespace (that's it). Click on "Create".
 3. Edit it and paste this file.
 4. Go to: https://graph.api.smartthings.com/device/list
-5. Click on "New Device". Add Name, Device Network Id (put anything there), Type: SmartCam (same as you added in step 2 above),
-   Version: Published, Location: your hub name
+5. Click on "New Device". Add Name, Device Network Id (put anything there), Type: SmartCam (same as you added in step 2 above),<br>
+Version: Published, Location: your hub name
 6. Immediately after adding the device, click on the "Edit" link next to the "Preferences" entry in the table.
 7. Populate settings:
   a) Camera IP Address (192.168, 172.1x or 10.x.x.x works fine too)
@@ -22,7 +22,7 @@ HUB API is not allowing for two physicalgraph.device.HubAction in a row in a qui
   f) Camera Password: anything you've set during your camera setup
 8. Go to your mobile app and add a new widget.
 9. Click on "Auth" button and see if you can sucessfully authenticate with your local camera. If not, triple check your settings.
-  Note: you can look at your logs in the real time if you're curious what's happening: https://graph.api.smartthings.com/ide/logs
+Note: you can look at your logs in the real time if you're curious what's happening: https://graph.api.smartthings.com/ide/logs
  
 Date: 2014-12-30
 Version: 1.0 (tested and working)
